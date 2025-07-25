@@ -1,24 +1,5 @@
-<!-- index.html 可部署到 GitHub Pages -->
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>到期检测</title>
-</head>
-<body>
-  <pre id="result"></pre>
-  <script>
-    const EXPIRE_TIME = new Date("2025-12-31T23:59:59");
-    const now = new Date();
-    const expired = now > EXPIRE_TIME;
-    const data = {
-      expire: EXPIRE_TIME.toISOString(),
-      expired: expired,
-      message: expired ? "软件已到期，请联系管理员。" : "软件可正常使用。"
-    };
-
-    // 以 JSON 格式美化显示到页面
-    document.getElementById('result').textContent = JSON.stringify(data, null, 2);
-  </script>
-</body>
-</html>
+{
+  "expire": "2025-12-31T23:59:59.000Z",
+  "expired": false,
+  "message": "软件可正常使用。"
+}
