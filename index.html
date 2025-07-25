@@ -11,12 +11,24 @@
     const EXPIRE_TIME = new Date("2025-12-31T23:59:59");
     const now = new Date();
     const expired = now > EXPIRE_TIME;
-    document.getElementById('result').innerHTML = `
-      <p>expire: ${EXPIRE_TIME.toLocaleString()}</p>
-      <p>now: ${now.toLocaleString()}</p>
-      <p>expired: ${expired}</p>
-      <p>message: ${expired ? "软件已到期，请联系管理员。" : "软件可正常使用。"}</p>
-    `;
+    const data = {
+      expire: EXPIRE_TIME.toISOString(),
+      expired: expired,
+      message: expired ? "软件已到期，请联系管理员。" : "软件可正常使用。"
+    };
+
+    // 创建 Blob 和下载链接
+    const blob = new Blob([JSON.stringify(data, null, 2)], {type: "application/json"});
+    const url = URL.createObjectURL(blob);
+
+    // 创建并自动点击下载链接
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = "expire-info.json";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
   </script>
 </body>
 </html>
