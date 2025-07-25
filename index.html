@@ -6,7 +6,7 @@
   <title>到期检测</title>
 </head>
 <body>
-  <div id="result"></div>
+  <pre id="result"></pre>
   <script>
     const EXPIRE_TIME = new Date("2025-12-31T23:59:59");
     const now = new Date();
@@ -17,18 +17,8 @@
       message: expired ? "软件已到期，请联系管理员。" : "软件可正常使用。"
     };
 
-    // 创建 Blob 和下载链接
-    const blob = new Blob([JSON.stringify(data, null, 2)], {type: "application/json"});
-    const url = URL.createObjectURL(blob);
-
-    // 创建并自动点击下载链接
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = "expire-info.json";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+    // 以 JSON 格式美化显示到页面
+    document.getElementById('result').textContent = JSON.stringify(data, null, 2);
   </script>
 </body>
 </html>
